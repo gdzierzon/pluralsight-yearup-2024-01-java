@@ -6,6 +6,7 @@ public class MainApplication {
         // priting to screen
         System.out.println("HTML");
         System.out.println("CSS");
+        System.out.println();
 
         // declaring and initializing variables
         String name = "Gregor";
@@ -19,6 +20,9 @@ public class MainApplication {
         double priceOfCookie = 1.25;
         int numberOfCookies = 2;
         double totalCost = priceOfCookie * numberOfCookies;
+        System.out.println("Cost per cookie: " + priceOfCookie);
+        System.out.println("Number of cookies: " + numberOfCookies);
+        System.out.println("------------------------------------");
         System.out.println("Total cost of cookies: " + totalCost);
     }
 }
