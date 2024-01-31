@@ -52,5 +52,6 @@ public class Bakery
         // output
         System.out.println("Order for " + name);
         System.out.println("Order total: $" + totalPrice);
+
     }
 }
