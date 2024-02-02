@@ -14,6 +14,10 @@ public class BasicCalculator
         String operation;
         double answer;
 
+        System.out.println();
+        System.out.println("Basic Calculator");
+        System.out.println();
+
         System.out.print("Enter the first number: ");
         operand1 = userInput.nextDouble();
         userInput.nextLine();
