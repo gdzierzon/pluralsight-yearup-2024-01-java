@@ -1,7 +1,7 @@
 package com.pluralsight.demos;
 
-import com.pluralsight.Card;
-import com.pluralsight.Deck;
+import com.pluralsight.games.Card;
+import com.pluralsight.games.Deck;
 
 public class CardAndDeckDemos
 {
