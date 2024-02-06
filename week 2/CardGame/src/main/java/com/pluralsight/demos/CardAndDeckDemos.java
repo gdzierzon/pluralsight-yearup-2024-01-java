@@ -1,6 +1,10 @@
-package com.pluralsight;
+package com.pluralsight.demos;
 
-public class MainProgram {
+import com.pluralsight.Card;
+import com.pluralsight.Deck;
+
+public class CardAndDeckDemos
+{
 
 	public static void main(String[] args) {
 		Card aceOfSpades = new Card("s", "A");
