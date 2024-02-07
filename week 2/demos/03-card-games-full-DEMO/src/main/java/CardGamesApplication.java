@@ -24,22 +24,26 @@ public class CardGamesApplication
 
         GameOptions option = UserInput.gameToPlay();
 
-        if(option == GameOptions.BlackJack)
+        while(option != GameOptions.Quit)
         {
-            deck = loadFaceCardDeck("face.txt");
-            game = new BlackJackConsole((FaceCardDeck)deck);
-            game.play();
+            if (option == GameOptions.BlackJack)
+            {
+                deck = loadFaceCardDeck("face.txt");
+                game = new BlackJackConsole((FaceCardDeck) deck);
+                game.play();
+            }
+            else if (option == GameOptions.Uno)
+            {
+                deck = loadDeck("uno.txt");
+                game = new UnoConsole(deck);
+                game.play();
+            }
+
+            option = UserInput.gameToPlay();
         }
-        else if(option == GameOptions.Uno)
-        {
-            deck = loadDeck("uno.txt");
-            game = new UnoConsole(deck);
-            game.play();
-        }
-        else
-        {
-            UserOutput.thankYou();
-        }
+
+        UserOutput.thankYou();
+
 
     }
 
