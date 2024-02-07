@@ -1,0 +1,53 @@
+Name             |Face|Value|Suit
+Ace of Spades    |A   |11   |Spades
+King of Spades   |K   |10   |Spades
+Queen of Spades  |Q   |10   |Spades
+Jack of Spades   |J   |10   |Spades
+Ten of Spades    |10  |10   |Spades
+Nine of Spades   |9   |9    |Spades
+Eight of Spades  |8   |8    |Spades
+Seven of Spades  |7   |7    |Spades
+Six of Spades    |6   |6    |Spades
+Five of Spades   |5   |5    |Spades
+Four of Spades   |4   |4    |Spades
+Three of Spades  |3   |3    |Spades
+Two of Spades    |2   |2    |Spades
+Ace of Hearts    |A   |11   |Hearts
+King of Hearts   |K   |10   |Hearts
+Queen of Hearts  |Q   |10   |Hearts
+Jack of Hearts   |J   |10   |Hearts
+Ten of Hearts    |10  |10   |Hearts
+Nine of Hearts   |9   |9    |Hearts
+Eight of Hearts  |8   |8    |Hearts
+Seven of Hearts  |7   |7    |Hearts
+Six of Hearts    |6   |6    |Hearts
+Five of Hearts   |5   |5    |Hearts
+Four of Hearts   |4   |4    |Hearts
+Three of Hearts  |3   |3    |Hearts
+Two of Hearts    |2   |2    |Hearts
+Ace of Clubs     |A   |11   |Clubs
+King of Clubs    |K   |10   |Clubs
+Queen of Clubs   |Q   |10   |Clubs
+Jack of Clubs    |J   |10   |Clubs
+Ten of Clubs     |10  |10   |Clubs
+Nine of Clubs    |9   |9    |Clubs
+Eight of Clubs   |8   |8    |Clubs
+Seven of Clubs   |7   |7    |Clubs
+Six of Clubs     |6   |6    |Clubs
+Five of Clubs    |5   |5    |Clubs
+Four of Clubs    |4   |4    |Clubs
+Three of Clubs   |3   |3    |Clubs
+Two of Clubs     |2   |2    |Clubs
+Ace of Diamonds  |A   |11   |Diamonds
+King of Diamonds |K   |10   |Diamonds
+Queen of Diamonds|Q   |10   |Diamonds
+Jack of Diamonds |J   |10   |Diamonds
+Ten of Diamonds  |10  |10   |Diamonds
+Nine of Diamonds |9   |9    |Diamonds
+Eight of Diamonds|8   |8    |Diamonds
+Seven of Diamonds|7   |7    |Diamonds
+Six of Diamonds  |6   |6    |Diamonds
+Five of Diamonds |5   |5    |Diamonds
+Four of Diamonds |4   |4    |Diamonds
+Three of Diamonds|3   |3    |Diamonds
+Two of Diamonds  |2   |2    |Diamonds

@@ -1,0 +1,61 @@
+Name          |Face   |Value|Suit
+Red 0         |0      |0    |Red
+Red 1         |1      |1    |Red
+Red 2         |2      |2    |Red
+Red 3         |3      |3    |Red
+Red 4         |4      |4    |Red
+Red 5         |5      |5    |Red
+Red 6         |6      |6    |Red
+Red 7         |7      |7    |Red
+Red 8         |8      |8    |Red
+Red 9         |9      |9    |Red
+Red Skip      |Skip   |10   |Red
+Red Skip      |Skip   |10   |Red
+Red Reverse   |Reverse|10   |Red
+Red Reverse   |Reverse|10   |Red
+Yellow 0      |0      |0    |Yellow
+Yellow 1      |1      |1    |Yellow
+Yellow 2      |2      |2    |Yellow
+Yellow 3      |3      |3    |Yellow
+Yellow 4      |4      |4    |Yellow
+Yellow 5      |5      |5    |Yellow
+Yellow 6      |6      |6    |Yellow
+Yellow 7      |7      |7    |Yellow
+Yellow 8      |8      |8    |Yellow
+Yellow 9      |9      |9    |Yellow
+Yellow Skip   |Skip   |10   |Yellow
+Yellow Skip   |Skip   |10   |Yellow
+Yellow Reverse|Reverse|10   |Yellow
+Yellow Reverse|Reverse|10   |Yellow
+Blue 0        |0      |0    |Blue
+Blue 1        |1      |1    |Blue
+Blue 2        |2      |2    |Blue
+Blue 3        |3      |3    |Blue
+Blue 4        |4      |4    |Blue
+Blue 5        |5      |5    |Blue
+Blue 6        |6      |6    |Blue
+Blue 7        |7      |7    |Blue
+Blue 8        |8      |8    |Blue
+Blue 9        |9      |9    |Blue
+Blue Skip     |Skip   |10   |Blue
+Blue Skip     |Skip   |10   |Blue
+Blue Reverse  |Reverse|10   |Blue
+Blue Reverse  |Reverse|10   |Blue
+Green 0       |0      |0    |Green
+Green 1       |1      |1    |Green
+Green 2       |2      |2    |Green
+Green 3       |3      |3    |Green
+Green 4       |4      |4    |Green
+Green 5       |5      |5    |Green
+Green 6       |6      |6    |Green
+Green 7       |7      |7    |Green
+Green 8       |8      |8    |Green
+Green 9       |9      |9    |Green
+Green Skip    |Skip   |10   |Green
+Green Skip    |Skip   |10   |Green
+Green Reverse |Reverse|10   |Green
+Green Reverse |Reverse|10   |Green
+Wild          |Wild   |25   |Any
+Wild          |Wild   |25   |Any
+Wild          |Wild   |25   |Any
+Wild          |Wild   |25   |Any
