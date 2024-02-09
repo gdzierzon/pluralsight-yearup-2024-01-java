@@ -64,11 +64,6 @@ public class Pizza
         return toppings;
     }
 
-    public void setToppings(ArrayList<String> toppings)
-    {
-        this.toppings = toppings;
-    }
-
     public double getBasePrice()
     {
         double basePrice = 5.99;
@@ -88,5 +83,10 @@ public class Pizza
     public double getTotalPrice()
     {
         return getBasePrice() + (toppings.size() * 1.5);
+    }
+
+    public void addTopping(String topping)
+    {
+        toppings.add(topping);
     }
 }
