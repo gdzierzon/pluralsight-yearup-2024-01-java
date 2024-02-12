@@ -1,0 +1,3 @@
+type, order id, customer name, progress
+dinein,1001,Alpha,ordered,6:00 pm,5,7,Seth
+delivery,1007,Gregor,ordered,123 Main,,Grantsville,UT,84111
