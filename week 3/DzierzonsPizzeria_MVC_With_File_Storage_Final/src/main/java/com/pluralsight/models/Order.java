@@ -13,11 +13,17 @@ public abstract class Order
 
     public Order(String name)
     {
-
         orderId = currentOrderId++;
         this.name = name;
         progress = "ordered";
         pizzas = new ArrayList<>();
+    }
+
+    public Order(int orderId, String name, String progress)
+    {
+        this.orderId = orderId;
+        this.name = name;
+        this.progress = progress;
     }
 
     public int getOrderId()
@@ -30,9 +36,19 @@ public abstract class Order
         return name;
     }
 
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
     public String getProgress()
     {
         return progress;
+    }
+
+    public void setProgress(String progress)
+    {
+        this.progress = progress;
     }
 
     public ArrayList<Pizza> getPizzas()
