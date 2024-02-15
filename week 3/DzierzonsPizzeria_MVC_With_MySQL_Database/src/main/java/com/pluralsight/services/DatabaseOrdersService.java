@@ -3,16 +3,21 @@ package com.pluralsight.services;
 import com.pluralsight.models.DeliveryOrder;
 import com.pluralsight.models.DineInOrder;
 import com.pluralsight.models.Order;
+import com.pluralsight.models.Pizza;
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DatabaseOrdersService implements OrdersService
 {
-    BasicDataSource dataSource;
+    DataSource dataSource;
+    PizzaService pizzaService = new DatabasePizzaService();
+
     public DatabaseOrdersService()
     {
         String databaseUrl = "jdbc:mysql://localhost:3306/pizzaria";
@@ -162,6 +167,13 @@ public class DatabaseOrdersService implements OrdersService
                 );
             }
 
+            // use the pizza service to get pizzas from the database
+            ArrayList<Pizza> pizzas = pizzaService.findByOrderId(order.getOrderId());
+            for(Pizza pizza: pizzas)
+            {
+                order.addPizza(pizza);
+            }
+
             return order;
         }
         catch (SQLException e)
@@ -174,11 +186,51 @@ public class DatabaseOrdersService implements OrdersService
     public void updateOrder(int orderId, Order order)
     {
 
+        try(Connection connection = dataSource.getConnection())
+        {
+            String sql = "UPDATE orders " +
+                    " SET progress = ? " +
+                    " WHERE order_id = ?; " ;
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, order.getProgress());
+            statement.setInt(2, orderId);
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+        }
     }
 
     @Override
     public void deleteOrder(int orderId)
     {
+        try(Connection connection = dataSource.getConnection())
+        {
+            // delete all pizzas
+            pizzaService.deleteByOrderId(orderId);
 
+            PreparedStatement statement;
+
+            // delete delivery orders (if exists)
+            statement = connection.prepareStatement("DELETE FROM delivery_orders WHERE order_id = ?;");
+            statement.setInt(1, orderId);
+            statement.executeUpdate();
+
+            // delete dine in order (if exists)
+            statement = connection.prepareStatement("DELETE FROM dine_in_orders WHERE order_id = ?;");
+            statement.setInt(1, orderId);
+            statement.executeUpdate();
+
+            // finally delete the root order
+            statement = connection.prepareStatement("DELETE FROM orders WHERE order_id = ?;");
+            statement.setInt(1, orderId);
+            statement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }

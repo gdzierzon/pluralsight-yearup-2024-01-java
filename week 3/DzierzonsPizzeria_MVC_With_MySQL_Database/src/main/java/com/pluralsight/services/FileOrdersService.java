@@ -15,10 +15,12 @@ public class FileOrdersService implements OrdersService
     private static final String FILE_PATH = "data/orders.csv";
     private FilePizzaService pizzaService = new FilePizzaService();
 
-    private HashMap<Integer, Order> orders;
+    private int nextOrderId = 1001;
+    private final HashMap<Integer, Order> orders;
 
     public FileOrdersService()
     {
+        nextOrderId = getLastOrderNumber() + 1;
         orders = loadOrders();
     }
 
@@ -131,6 +133,7 @@ public class FileOrdersService implements OrdersService
     public void addOrder(Order order)
     {
         // this is actually where we should add the order ID
+        order.setOrderId(nextOrderId++);
 
         // open the file for writing (append true)
         try(FileWriter fileWriter = new FileWriter(FILE_PATH,true))

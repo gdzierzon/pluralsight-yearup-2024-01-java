@@ -4,8 +4,7 @@ create database if not exists pizzaria;
 
 use pizzaria;
 
--------------------------------
---------- Add Tables ----------
+-- Add Tables
 
 CREATE TABLE `orders`
 (

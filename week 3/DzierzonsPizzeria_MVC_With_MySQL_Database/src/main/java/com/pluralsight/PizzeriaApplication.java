@@ -4,10 +4,7 @@ import com.pluralsight.models.DeliveryOrder;
 import com.pluralsight.models.DineInOrder;
 import com.pluralsight.models.Order;
 import com.pluralsight.models.Pizza;
-import com.pluralsight.services.DatabaseOrdersService;
-import com.pluralsight.services.FileOrdersService;
-import com.pluralsight.services.FilePizzaService;
-import com.pluralsight.services.OrdersService;
+import com.pluralsight.services.*;
 import com.pluralsight.views.UserInput;
 
 // PizzaApplication acts as the controller
@@ -15,10 +12,14 @@ import com.pluralsight.views.UserInput;
 public class PizzeriaApplication
 {
     UserInput ui = new UserInput();
-    OrdersService orderService = new DatabaseOrdersService();
-    FilePizzaService pizzaService = new FilePizzaService();
+    OrdersService orderService;
+    PizzaService pizzaService;
 
-    private final double TOPPING_PRICE = 1.5;
+    public PizzeriaApplication(OrdersService orderService, PizzaService pizzaService)
+    {
+        this.orderService = orderService;
+        this.pizzaService = pizzaService;
+    }
 
 
     public void run()

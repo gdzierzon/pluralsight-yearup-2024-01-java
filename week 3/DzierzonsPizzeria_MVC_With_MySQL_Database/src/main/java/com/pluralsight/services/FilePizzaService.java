@@ -4,13 +4,15 @@ import com.pluralsight.models.Pizza;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-public class FilePizzaService
+public class FilePizzaService implements PizzaService
 {
     private static final String FILE_PATH = "data/pizzas.csv";
     private static int currentPizzaId = 1;
-    private ArrayList<Pizza> pizzas;
+    private List<Pizza> pizzas;
 
     public FilePizzaService()
     {
@@ -174,6 +176,15 @@ public class FilePizzaService
         pizzas.remove(currentPizza);
 
         // overwrite the file without the deleted pizza
+        saveChanges();
+    }
+
+    public void deleteByOrderId(int orderId)
+    {
+        pizzas = pizzas.stream()
+                        .filter(p -> p.getOrderId() != orderId)
+                        .toList();
+
         saveChanges();
     }
 
