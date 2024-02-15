@@ -1,0 +1,184 @@
+package com.pluralsight.services;
+
+import com.pluralsight.models.DeliveryOrder;
+import com.pluralsight.models.DineInOrder;
+import com.pluralsight.models.Order;
+import org.apache.commons.dbcp2.BasicDataSource;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class DatabaseOrdersService implements OrdersService
+{
+    BasicDataSource dataSource;
+    public DatabaseOrdersService()
+    {
+        String databaseUrl = "jdbc:mysql://localhost:3306/pizzaria";
+        String userName = "root";
+        String password = "P@ssw0rd";
+        dataSource = new BasicDataSource()
+        {{
+            setUrl(databaseUrl);
+            setUsername(userName);
+            setPassword(password);
+        }};
+    }
+
+    @Override
+    public void addOrder(Order order)
+    {
+        try(Connection connection = dataSource.getConnection())
+        {
+            String sql = "INSERT INTO orders (`name`, `progress`, `order_type`) " +
+                        " VALUES (?,'ordered',?);";
+
+            PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setString(1, order.getName());
+            statement.setString(2, order.getType());
+
+            // insert the order
+            statement.executeUpdate();
+
+            // get the auto number id of the new order
+            ResultSet key = statement.getGeneratedKeys();
+            key.next();
+            int newId = key.getInt(1);
+            order.setOrderId(newId);
+
+            if(order.getType().equalsIgnoreCase("delivery"))
+            {
+                insertDeliveryInfo((DeliveryOrder) order);
+            }
+            else
+            {
+                insertDineInInfo((DineInOrder) order);
+            }
+
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void insertDeliveryInfo(DeliveryOrder order)
+    {
+        String sql = "INSERT INTO delivery_orders(`order_id`,address, apartment, city, state, zip) " +
+                    " VALUES (?,?,?,?,?,?)";
+
+        try(Connection connection = dataSource.getConnection())
+        {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, order.getOrderId());
+            statement.setString(2, order.getAddress());
+            statement.setString(3, order.getApartment());
+            statement.setString(4, order.getCity());
+            statement.setString(5, order.getState());
+            statement.setString(6, order.getZip());
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+        }
+    }
+    private void insertDineInInfo(DineInOrder order)
+    {
+        String sql = "INSERT INTO dine_in_orders(`order_id`, reservation_time, number_of_guests, table_number, server) " +
+                " VALUES (?,?,?,?,?)";
+
+        try(Connection connection = dataSource.getConnection())
+        {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, order.getOrderId());
+            statement.setString(2, order.getReservationTime());
+            statement.setInt(3, order.getNumberOfGuests());
+            statement.setInt(4, order.getTable());
+            statement.setString(5, order.getServer());
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+        }
+    }
+
+    @Override
+    public Order getByOrderId(int orderId)
+    {
+        String sql = "SELECT o.order_id\n" +
+                "    , o.name\n" +
+                "    , o.progress\n" +
+                "    , o.order_type\n" +
+                "    , dio.reservation_time\n" +
+                "    , dio.number_of_guests\n" +
+                "    , dio.table_number\n" +
+                "    , dio.server\n" +
+                "    , del.address\n" +
+                "    , del.apartment\n" +
+                "    , del.city\n" +
+                "    , del.state\n" +
+                "    , del.zip\n" +
+                "FROM orders AS o\n" +
+                "LEFT JOIN dine_in_orders as dio\n" +
+                "\tON o.order_id = dio.order_id\n" +
+                "LEFT JOIN delivery_orders as del\n" +
+                "\tON o.order_id = del.order_id\n" +
+                "WHERE o.order_id = ?;";
+
+        try(Connection connection = dataSource.getConnection())
+        {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, orderId);
+
+            ResultSet row = statement.executeQuery();
+            row.next();
+
+            Order order;
+            if(row.getString("order_type").equalsIgnoreCase("dinein"))
+            {
+                order = new DineInOrder( row.getInt("order_id")
+                            , row.getString("name")
+                            , row.getString("progress")
+                            , row.getString("reservation_time")
+                            , row.getInt("number_of_guests")
+                            , row.getInt("table_number")
+                            , row.getString("server")
+                        );
+            }
+            else
+            {
+                order = new DeliveryOrder(row.getInt("order_id")
+                        , row.getString("name")
+                        , row.getString("progress")
+                        , row.getString("address")
+                        , row.getString("apartment")
+                        , row.getString("city")
+                        , row.getString("state")
+                        , row.getString("zip")
+                );
+            }
+
+            return order;
+        }
+        catch (SQLException e)
+        {
+        }
+        return null;
+    }
+
+    @Override
+    public void updateOrder(int orderId, Order order)
+    {
+
+    }
+
+    @Override
+    public void deleteOrder(int orderId)
+    {
+
+    }
+}

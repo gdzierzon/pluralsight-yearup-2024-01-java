@@ -1,0 +1,6 @@
+pizza id,order id,size,sauce,cheese,toppings
+1,1001,Large,Tomato,Cheddar,Pepperoni|Sausage|Onions|Peppers
+2,1007,Small,Tomato,Mozzarella,Ham|Pineapple|Mushrooms
+3,1001,Large,Alfredo,Mozzarella,Chicken|Onions|Artichokes
+1002,1008,Large,Alfredo,Cheddar,Bananas|Tomatoes
+1003,1008,Small,Tomato,Mozzarella,Pepperoni
