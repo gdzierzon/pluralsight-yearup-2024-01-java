@@ -44,6 +44,7 @@ public class DatabasePizzaService implements PizzaService
 
             statement.executeUpdate();
 
+            // get the new pizza_id (autonumber)
             ResultSet key = statement.getGeneratedKeys();
             key.next();
             int pizzaId = key.getInt(1);
@@ -92,7 +93,7 @@ public class DatabasePizzaService implements PizzaService
         }
 
 
-        return null;
+        return pizza;
     }
 
     @Override public ArrayList<Pizza> findByOrderId(int orderId)
@@ -150,9 +151,12 @@ public class DatabasePizzaService implements PizzaService
             statement.setString(3,pizza.getCheese());
             statement.setInt(4, pizzaId);
 
+            // this does not affect toppings yet
             statement.executeUpdate();
 
+            // delete the toppings that are currently in the database
             clearToppings(pizzaId);
+            // re-add all updated toppings
             saveToppings(pizza);
         }
         catch (SQLException e)
@@ -164,13 +168,12 @@ public class DatabasePizzaService implements PizzaService
     {
         try(Connection connection = dataSource.getConnection())
         {
+            // we need to delete all toppings first
+            clearToppings(pizzaId);
 
             String sql = "DELETE FROM pizzas WHERE pizza_id = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, pizzaId);
-
-            // we need to delete all toppings first
-            clearToppings(pizzaId);
             // then we can delete the pizza
             statement.executeUpdate();
         }

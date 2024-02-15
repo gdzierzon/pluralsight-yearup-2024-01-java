@@ -38,7 +38,9 @@ public class DatabaseOrdersService implements OrdersService
         {
             String sql = "INSERT INTO orders (`name`, `progress`, `order_type`) " +
                         " VALUES (?,'ordered',?);";
-
+            
+            // include PreparedStatement.RETURN_GENERATED_KEYS only when inserting into
+            // a table with an auto numbered field
             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, order.getName());
             statement.setString(2, order.getType());
@@ -114,24 +116,24 @@ public class DatabaseOrdersService implements OrdersService
     @Override
     public Order getByOrderId(int orderId)
     {
-        String sql = "SELECT o.order_id\n" +
-                "    , o.name\n" +
-                "    , o.progress\n" +
-                "    , o.order_type\n" +
-                "    , dio.reservation_time\n" +
-                "    , dio.number_of_guests\n" +
-                "    , dio.table_number\n" +
-                "    , dio.server\n" +
-                "    , del.address\n" +
-                "    , del.apartment\n" +
-                "    , del.city\n" +
-                "    , del.state\n" +
-                "    , del.zip\n" +
-                "FROM orders AS o\n" +
-                "LEFT JOIN dine_in_orders as dio\n" +
-                "\tON o.order_id = dio.order_id\n" +
-                "LEFT JOIN delivery_orders as del\n" +
-                "\tON o.order_id = del.order_id\n" +
+        String sql = "SELECT o.order_id " +
+                "    , o.name " +
+                "    , o.progress " +
+                "    , o.order_type " +
+                "    , dio.reservation_time " +
+                "    , dio.number_of_guests " +
+                "    , dio.table_number " +
+                "    , dio.server " +
+                "    , del.address " +
+                "    , del.apartment " +
+                "    , del.city " +
+                "    , del.state " +
+                "    , del.zip " +
+                "FROM orders AS o " +
+                "LEFT JOIN dine_in_orders as dio " +
+                "   ON o.order_id = dio.order_id " +
+                "LEFT JOIN delivery_orders as del " +
+                "   ON o.order_id = del.order_id " +
                 "WHERE o.order_id = ?;";
 
         try(Connection connection = dataSource.getConnection())
